@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/BaseWeapon/BaseWeapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/charge_gun.png" type="Texture" id=2]
+[ext_resource path="res://Assets/laser.wav" type="AudioStream" id=3]
+
+[node name="Bigred" groups=[
+"red_bullets",
+] instance=ExtResource( 1 )]
+bullet_speed = 7
+aim_factor = 0.005
+damage = 201.0
+fire_rate = 1.0
+screen_shake = false
+
+[node name="sprite" parent="." index="0"]
+position = Vector2( 21, 0 )
+scale = Vector2( 1, 1 )
+texture = ExtResource( 2 )
+
+[node name="bullet_spawn" parent="." index="1"]
+position = Vector2( 55, 0 )
+
+[node name="Audio" parent="." index="3"]
+stream = ExtResource( 3 )
+pitch_scale = 0.63

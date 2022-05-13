@@ -1,0 +1,96 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://main_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/Menu/Cred_Screen.gd" type="Script" id=2]
+[ext_resource path="res://PlainBG.png" type="Texture" id=3]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -226, 58 )
+mouse_filter = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="."]
+anchor_left = 0.346
+anchor_top = 0.104
+anchor_right = 0.668
+anchor_bottom = 0.188
+margin_left = -0.12001
+margin_top = -0.120003
+margin_right = -115.96
+margin_bottom = -17.14
+rect_scale = Vector2( 2, 2 )
+theme = ExtResource( 1 )
+text = "HOW TO PLAY"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.266
+anchor_top = 0.197
+anchor_right = 0.745
+anchor_bottom = 0.895
+margin_left = -0.272507
+margin_top = 0.0800781
+margin_right = 114.847
+margin_bottom = 94.3901
+rect_scale = Vector2( 0.75, 0.75 )
+theme = ExtResource( 1 )
+text = "
+Left joystick - movement
+
+right joystick - aim / shoot  (when holding gun)
+
+left button - grapple   (when facing wall)
+
+right button - pick up gun  (when near gun)
+
+---
+
+5 guns to find
+
+3 hearts to find
+
+kill to score
+
+
+"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit_Button" type="Button" parent="."]
+anchor_left = 0.272
+anchor_top = 0.825
+anchor_right = 0.733
+anchor_bottom = 0.923
+margin_left = 0.159988
+margin_top = -0.135254
+margin_right = 0.23999
+margin_bottom = 0.174805
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 1 )
+text = "MAIN MENU"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Exit_Button" to="." method="_on_Exit_Button_pressed"]

@@ -1,0 +1,308 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Level/Level.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Main/enemy_spawner.gd" type="Script" id=3]
+[ext_resource path="res://pause_button.png" type="Texture" id=4]
+[ext_resource path="res://Assets/healthbar_bg.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/UI/HealthBar.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/UI/Score.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/UI/Score.gd" type="Script" id=8]
+[ext_resource path="res://shadow_fix.gd" type="Script" id=9]
+[ext_resource path="res://main_theme.tres" type="Theme" id=10]
+[ext_resource path="res://Scenes/MobileJoyStick/MobileJoystick.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Assets/healthbar_fg.png" type="Texture" id=12]
+[ext_resource path="res://Scenes/Main/fps_count.gd" type="Script" id=13]
+[ext_resource path="res://gun_button.png" type="Texture" id=14]
+[ext_resource path="res://grapple_button.png" type="Texture" id=15]
+[ext_resource path="res://Scenes/Main/Main.gd" type="Script" id=16]
+[ext_resource path="res://music_button.png" type="Texture" id=17]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 600, 490 )
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Label
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+
+
+func _on_enemy_spawner_enemy_spawned():
+	set_text(\"Enemy Level: \" + str(get_node(\"../../enemy_spawner\").quota))
+"
+
+[node name="Main" type="Node"]
+script = ExtResource( 16 )
+music_btn_path = NodePath("UI/pause_screen/music_button")
+
+[node name="score_timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="Level" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, -1 )
+
+[node name="enemy_spawner" type="Node2D" parent="."]
+script = ExtResource( 3 )
+quota = 0
+player_path = NodePath("../Player")
+level_path = NodePath("../Level")
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( -506, 87 )
+max_health = 1000
+speed = 30
+move_stick_path = NodePath("../UI/move_stick")
+aim_stick_path = NodePath("../UI/aim_stick")
+
+[node name="Node2" type="Node" parent="Player"]
+
+[node name="Despawner" type="Area2D" parent="Player/Node2"]
+position = Vector2( -506, 87 )
+script = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Node2/Despawner"]
+shape = SubResource( 1 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+scale = Vector2( 0.5, 0.5 )
+transform = Transform2D( 0.5, 0, 0, 0.5, 0, 0 )
+
+[node name="score_count" parent="UI" instance=ExtResource( 7 )]
+anchor_left = 0.025
+anchor_top = 0.163
+anchor_right = 0.5
+anchor_bottom = 0.405
+margin_left = -8.0
+margin_top = -0.0149994
+margin_right = -299.0
+margin_bottom = -84.025
+rect_scale = Vector2( 7, 7 )
+theme = ExtResource( 10 )
+uppercase = true
+script = ExtResource( 8 )
+target_path = NodePath("../../Player")
+
+[node name="enemy_count" type="Label" parent="UI"]
+anchor_left = 0.017
+anchor_top = 0.03
+anchor_right = 0.572
+anchor_bottom = 0.168
+margin_left = -0.240001
+margin_top = -0.150001
+margin_right = -299.84
+margin_bottom = -42.04
+rect_scale = Vector2( 4, 4 )
+theme = ExtResource( 10 )
+text = "Enemy level: 0"
+uppercase = true
+script = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="UI"]
+anchor_left = 1.21
+anchor_top = 0.068
+anchor_right = 1.766
+anchor_bottom = 0.316
+margin_left = -0.200012
+margin_top = 0.459999
+margin_right = -0.52002
+margin_bottom = 0.0199966
+min_value = -60.0
+max_value = 1060.0
+value = 1000.0
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 12 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+target_path = NodePath("../../Player")
+
+[node name="pickup_button" type="TouchScreenButton" parent="UI"]
+modulate = Color( 1, 0, 0, 0.313726 )
+position = Vector2( 862, 594 )
+scale = Vector2( 2, 2 )
+normal = ExtResource( 14 )
+action = "pickup"
+
+[node name="grapple_button" type="TouchScreenButton" parent="UI"]
+modulate = Color( 1, 0, 0, 0.313726 )
+position = Vector2( 418, 594 )
+scale = Vector2( 2, 2 )
+normal = ExtResource( 15 )
+action = "hook"
+
+[node name="aim_stick" parent="UI" instance=ExtResource( 11 )]
+position = Vector2( 1084, 460 )
+scale = Vector2( 2, 2 )
+is_left = false
+
+[node name="move_stick" parent="UI" instance=ExtResource( 11 )]
+position = Vector2( 100, 460 )
+scale = Vector2( 2, 2 )
+
+[node name="pause_button" type="TouchScreenButton" parent="UI"]
+modulate = Color( 1, 1, 1, 0.627451 )
+position = Vector2( 1298.49, 19.0488 )
+scale = Vector2( 1.5, 1.5 )
+normal = ExtResource( 4 )
+
+[node name="fps" type="Label" parent="UI"]
+anchor_left = 1.875
+anchor_top = 1.896
+anchor_right = 1.986
+anchor_bottom = 1.98
+margin_left = -0.00012207
+margin_top = 0.119934
+margin_right = -39.92
+margin_bottom = -16.9001
+rect_scale = Vector2( 2, 2 )
+theme = ExtResource( 10 )
+text = "0"
+align = 1
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="static" type="ColorRect" parent="UI"]
+modulate = Color( 0, 0, 0, 0 )
+anchor_right = 2.0
+anchor_bottom = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pause_screen" type="Popup" parent="UI"]
+pause_mode = 2
+anchor_right = 2.0
+anchor_bottom = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI/pause_screen"]
+modulate = Color( 0, 0, 0, 0.862745 )
+margin_right = 1440.0
+margin_bottom = 810.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="resume_button" type="Button" parent="UI/pause_screen"]
+anchor_left = 0.335
+anchor_top = 0.452
+anchor_right = 0.671
+anchor_bottom = 0.578
+margin_left = 0.509094
+margin_top = -0.120026
+margin_right = -322.331
+margin_bottom = -68.18
+rect_scale = Vector2( 3, 3 )
+theme = ExtResource( 10 )
+text = "RESUME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="quit_button" type="Button" parent="UI/pause_screen"]
+anchor_left = 0.335
+anchor_top = 0.643
+anchor_right = 0.671
+anchor_bottom = 0.769
+margin_left = 0.603455
+margin_top = -0.105225
+margin_right = -322.237
+margin_bottom = -68.1652
+rect_scale = Vector2( 3, 3 )
+theme = ExtResource( 10 )
+text = "EXIT GAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="paused_title" type="Label" parent="UI/pause_screen"]
+anchor_left = 0.311
+anchor_top = 0.21
+anchor_right = 0.705
+anchor_bottom = 0.378
+margin_left = -0.193024
+margin_top = -0.248077
+margin_right = -496.553
+margin_bottom = -119.328
+rect_scale = Vector2( 8, 8 )
+theme = ExtResource( 10 )
+text = "PAUSED"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="code" type="Label" parent="UI/pause_screen"]
+anchor_left = 0.007
+anchor_top = 0.972
+anchor_right = 0.1
+anchor_bottom = 1.018
+margin_left = -0.530684
+margin_top = 0.367432
+margin_right = -0.450684
+margin_bottom = 0.107483
+theme = ExtResource( 10 )
+text = "4 8 15 16 23 42
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music_button" type="TouchScreenButton" parent="UI/pause_screen"]
+modulate = Color( 0, 1, 0, 1 )
+position = Vector2( 24.9452, 19.5997 )
+scale = Vector2( 2, 2 )
+normal = ExtResource( 17 )
+
+[node name="highscore" type="Label" parent="UI"]
+visible = false
+anchor_left = 0.578
+anchor_top = 0.681
+anchor_right = 1.428
+anchor_bottom = 1.0
+margin_left = -0.160004
+margin_top = 0.195007
+margin_right = -408.16
+margin_bottom = -92.0
+rect_scale = Vector2( 3, 3 )
+theme = ExtResource( 10 )
+text = "High Score: 0
+"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -15.0
+
+[connection signal="timeout" from="score_timer" to="." method="_on_score_timer_timeout"]
+[connection signal="enemy_spawned" from="enemy_spawner" to="UI/enemy_count" method="_on_enemy_spawner_enemy_spawned"]
+[connection signal="game_over" from="Player" to="enemy_spawner" method="_on_Player_game_over"]
+[connection signal="game_over" from="Player" to="Player" method="_on_Player_game_over"]
+[connection signal="game_over" from="Player" to="." method="_on_Player_game_over"]
+[connection signal="body_exited" from="Player/Node2/Despawner" to="enemy_spawner" method="_on_Despawner_body_exited"]
+[connection signal="pressed" from="UI/pause_button" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="UI/pause_screen/resume_button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="UI/pause_screen/quit_button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="UI/pause_screen/music_button" to="." method="_on_music_button_pressed"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Hell_2_Pay_Theme.mp3-e1a58efe90b6fd1fb14bbf5e0ce70f43.mp3str"
+
+[deps]
+
+source_file="res://Assets/Hell_2_Pay_Theme.mp3"
+dest_files=[ "res://.import/Hell_2_Pay_Theme.mp3-e1a58efe90b6fd1fb14bbf5e0ce70f43.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

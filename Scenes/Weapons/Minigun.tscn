@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/minigun.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/BaseWeapon/BaseWeapon.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/minigun.wav" type="AudioStream" id=3]
+
+[node name="Minigun" instance=ExtResource( 2 )]
+shake_factor = 5.0
+aim_factor = 0.1
+damage = 3.0
+fire_rate = 0.01
+
+[node name="sprite" parent="." index="0"]
+position = Vector2( 17, 0 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 1 )
+
+[node name="bullet_spawn" parent="." index="1"]
+position = Vector2( 45, 0 )
+
+[node name="Audio" parent="." index="3"]
+stream = ExtResource( 3 )

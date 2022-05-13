@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/BaseWeapon/BaseWeapon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/minigun.wav" type="AudioStream" id=2]
+[ext_resource path="res://Assets/coil_gun.png" type="Texture" id=3]
+
+[node name="Coilgun" groups=[
+"alien_guns",
+"blue_bullets",
+] instance=ExtResource( 1 )]
+shake_factor = 0.0
+aim_factor = 0.0
+damage = 3.0
+fire_rate = 0.01
+
+[node name="sprite" parent="." index="0"]
+position = Vector2( 27, 0 )
+scale = Vector2( 1, 1 )
+texture = ExtResource( 3 )
+
+[node name="bullet_spawn" parent="." index="1"]
+position = Vector2( 59, 0 )
+
+[node name="Audio" parent="." index="3"]
+stream = ExtResource( 2 )
+pitch_scale = 4.0

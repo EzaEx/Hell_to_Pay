@@ -1,0 +1,188 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://HelltoPaytitle.png" type="Texture" id=1]
+[ext_resource path="res://admob-lib/admob.gd" type="Script" id=2]
+[ext_resource path="res://main_theme.tres" type="Theme" id=5]
+[ext_resource path="res://Scenes/Menu/title.gd" type="Script" id=6]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.269
+anchor_top = 0.274346
+anchor_right = 0.732
+anchor_bottom = 0.955346
+margin_left = 1.31998
+margin_top = 12.89
+margin_right = 0.959961
+margin_bottom = 13.085
+custom_constants/separation = 10
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Start_Button" type="Button" parent="VBoxContainer"]
+margin_top = 43.0
+margin_right = 332.0
+margin_bottom = 83.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 5 )
+text = "BEGIN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tut_Button" type="Button" parent="VBoxContainer"]
+margin_top = 93.0
+margin_right = 332.0
+margin_bottom = 133.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 5 )
+text = "HOW TO PLAY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Credits_Button" type="Button" parent="VBoxContainer"]
+margin_top = 143.0
+margin_right = 332.0
+margin_bottom = 183.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 5 )
+text = "CREDITS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit_Button" type="Button" parent="VBoxContainer"]
+margin_top = 193.0
+margin_right = 332.0
+margin_bottom = 233.0
+rect_min_size = Vector2( 0, 40 )
+theme = ExtResource( 5 )
+text = "EXIT GAME"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+visible = false
+anchor_left = 0.634856
+anchor_top = 0.633086
+anchor_right = 0.995667
+anchor_bottom = 0.877037
+margin_left = -0.0960083
+margin_top = -23.4
+margin_right = 0.119934
+margin_bottom = 14.8
+theme = ExtResource( 5 )
+text = "WASD to move
+E to pick up weapons
+LMB to shoot
+MMB to sling
+RMB to teleport (3s cooldown)
+
+Survive."
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="AdMob" type="Node" parent="."]
+script = ExtResource( 2 )
+is_real = true
+interstitial_id = "ca-app-pub-2495694164230910/5095841983"
+max_ad_content_rate = "PG"
+
+[node name="version" type="Label" parent="."]
+anchor_left = 0.87
+anchor_top = 0.959
+anchor_right = 0.995
+anchor_bottom = 0.994
+margin_left = -1.75702
+margin_top = 0.196014
+margin_right = -1.75702
+margin_bottom = 0.0210266
+text = "release v1.0.2"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="run_no" type="Label" parent="."]
+anchor_left = 0.007
+anchor_top = 0.957
+anchor_right = 0.073
+anchor_bottom = 0.992
+margin_left = 0.270028
+margin_top = -0.00195313
+margin_right = -0.249977
+margin_bottom = -0.176941
+text = "runs: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="static" type="ColorRect" parent="."]
+modulate = Color( 0, 0, 0, 0 )
+anchor_right = 2.0
+anchor_bottom = 2.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="load_indic" type="Label" parent="."]
+visible = false
+anchor_left = 0.38
+anchor_top = 0.472
+anchor_right = 0.635
+anchor_bottom = 0.556
+margin_left = -0.0542908
+margin_top = -0.156631
+margin_right = -91.6543
+margin_bottom = -17.1766
+rect_scale = Vector2( 2, 2 )
+theme = ExtResource( 5 )
+text = "Loading ..."
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="support_msg" type="Label" parent="."]
+visible = false
+anchor_left = 0.039
+anchor_top = 0.479
+anchor_right = 0.961
+anchor_bottom = 0.521
+margin_left = -0.0799999
+margin_top = 0.00498962
+margin_right = 0.0799561
+margin_bottom = -0.00500488
+theme = ExtResource( 5 )
+text = "Please consider playing with internet to support the developers!"
+uppercase = true
+
+[connection signal="pressed" from="VBoxContainer/Start_Button" to="." method="_on_Start_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Tut_Button" to="." method="_on_Tut_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Credits_Button" to="." method="_on_Credits_Button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Exit_Button" to="." method="_on_Exit_Button_pressed"]
+[connection signal="interstitial_closed" from="AdMob" to="." method="_on_AdMob_interstitial_closed"]
+[connection signal="interstitial_failed_to_load" from="AdMob" to="." method="_on_AdMob_interstitial_failed_to_load"]

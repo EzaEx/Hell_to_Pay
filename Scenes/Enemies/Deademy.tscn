@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Die.gd" type="Script" id=1]
+
+[node name="Deademy" type="CPUParticles2D"]
+amount = 50
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 73.86
+initial_velocity_random = 0.31
+linear_accel = -100.0
+scale_amount = 6.68
+scale_amount_random = 0.75
+color = Color( 1, 0, 0, 1 )
+script = ExtResource( 1 )

@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/MobileJoyStick/stick_text.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/MobileJoyStick/TouchScreenButton.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/MobileJoyStick/thumb_text.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 64.0
+
+[node name="MobileJoyStick" type="TouchScreenButton"]
+modulate = Color( 1, 1, 1, 0.294118 )
+normal = ExtResource( 1 )
+shape = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.588235 )
+position = Vector2( 64, 63 )
+texture = ExtResource( 3 )
